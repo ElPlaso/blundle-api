@@ -9,7 +9,7 @@ export interface PuzzleEntry {
     puzzle: string;
 }
 
-export async function getLatestPuzzle() {
+export async function getLatestPuzzle(): Promise<PuzzleEntry | null> {
     const redis = new Redis(env.REDIS_URL);
 
     const numKeys = await redis.dbsize();
@@ -19,6 +19,10 @@ export async function getLatestPuzzle() {
     }
 
     const puzzle = await redis.get(numKeys.toString());
+
+    if (!puzzle) {
+        return null;
+    }
 
     return { key: numKeys.toString(), puzzle };
 }
