@@ -8,11 +8,11 @@ app.get('/daily-puzzle', async (_req, res) => {
     const puzzleEntry = await getLatestPuzzle();
 
     if (!puzzleEntry) {
-        res.send('No puzzle found');
+        res.status(404).send('No puzzle found');
         return;
     }
 
-    res.send(puzzleEntry);
+    res.status(200).send(puzzleEntry);
 })
 
 app.listen(port, () => {
