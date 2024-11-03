@@ -1,7 +1,10 @@
 import express from 'express'
+import cors from 'cors'
 import { getLatestPuzzle } from './db/index.js';
 
 const app = express()
+app.use(cors());
+
 const port = 3000
 
 app.get('/daily-puzzle', async (_req, res) => {
